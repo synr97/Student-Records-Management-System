@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--判断是否登陆管理员账号-->
+{% if session.logged_in %}
+<form action="{{ url_for('add_data') }}" method=post class=add-entry>
+      <dl>
+        <dt>学号:
+        <dd><input type=text size=30 name=id>
+        <dt>姓名:
+        <dd><textarea name=name rows=5 cols=40></textarea>
+        <dt>性别:
+        <dd><textarea name=gender rows=5 cols=100></textarea>
+        <dt>手机:
+        <dd><input type=text size=30 name=phone>
+        <dt>生日:
+        <dd><input type=text size=30 name=birthdate>
+        <dt>地址:
+        <dd><input type=text size=30 name=address>
+        <dd><input type=submit value=Submit name=submit>
+      </dl>
+    </form>
+{% endif %}
+{% for data in all_data %}
+<table style="border-bottom-left-radius: inherit">
+    <tr>
+    <td>{{data.id}}</td>
+    <td>{{data.name}}</td>
+    <td>{{data.gender}}</td>
+    <td>{{data.phone}}</td>
+    <td>{{data.birthdate}}</td>
+    <td>{{data.address}}</td>
+    </tr>
+</table>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<head>
+  <title> 主页 </title>
+  <link rel=stylesheet type=text/css href="/static/style.css">
+  <!--bootstrap-->
+  <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="main-page">
+    <h1>学生档案管理系统</h1>
+    <div class="navigation">
+      {% if not session.logged_in %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('admin_login') }}" target="_blank">管理员登录</a></button>
+        {% else %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('logout') }}">退出登录</a></button>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+       安徽农业大学经济技术学院网络一班
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>错误页面</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="alert alert-warning">
+	<a href="#" class="close" data-dismiss="alert" onClick="javascript :history.go(-1);">
+		&times;
+	</a>
+	<strong>警告！</strong>{{error}} 请点击返回上一级,3秒钟后自动跳转
+</div>
+</body>
+<SCRIPT language=javascript>
+function go()
+{
+window.history.go(-1);
+}
+setTimeout("go()",3000);
+</SCRIPT>
+</html>

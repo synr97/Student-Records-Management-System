@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> 主页 </title>
+  <link rel=stylesheet type=text/css href="/static/style.css">
+  <!--bootstrap-->
+  <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<div class="main-page">
+    <h1>学生档案管理系统</h1>
+    <div class="navigation">
+      {% if not session.logged_in %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('admin_login') }}" target="_blank">管理员登录</a></button>
+        {% else %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('logout') }}">退出登录</a></button>
+        {% endif %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('show_system') }}">返回</a></button>
+    </div>
+      {% if session.logged_in %}
+      <table class="stu_table">
+            <tr><th>学号</th><th>姓名</th><th>性别</th><th>手机</th><th>生日</th><th>地址</th></tr>
+          {% for data in datas %}
+                <tr>
+                <td>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.gender}}</td>
+                <td>{{data.phone}}</td>
+                <td>{{data.birthdate}}</td>
+                <td>{{data.address}}</td>
+                </tr>
+       {% endfor %}
+      </table>
+      {% endif %}
+    <div class="footer">
+       安徽农业大学经济技术学院网络一班
+    </div>
+</div>
+</body>
+</html>

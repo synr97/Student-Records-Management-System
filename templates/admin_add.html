@@ -1,0 +1,48 @@
+<!doctype html>
+<head>
+  <title> 主页 </title>
+  <link rel=stylesheet type=text/css href="/static/style.css">
+  <!--bootstrap-->
+  <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="main-page">
+    <h1>学生档案管理系统</h1>
+    <div class="navigation">
+      {% if not session.logged_in %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('admin_login') }}" target="_blank">管理员登录</a></button>
+        {% else %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('logout') }}">退出登录</a></button>
+        {% endif %}
+        <button type="button" class="btn btn-link"><a href="{{ url_for('show_system') }}">返回</a></button>
+    </div>
+        {% if session.logged_in %}
+      <form role="form" action="{{ url_for('data_add') }}" method=post>
+          <div class="form-group">
+            <input type=text class="form-control"  placeholder="请输入您的学号" name=id>
+          </div>
+          <div class="form-group">
+            <input type=text class="form-control"  placeholder="请输入您的姓名" name=name>
+          </div>
+          <div class="form-group">
+            <input type=text class="form-control"  placeholder="请输入您的性别" name=gender>
+          </div>
+          <div class="form-group">
+            <input type=text class="form-control"  placeholder="请输入您的手机" name=phone>
+          </div>
+          <div class="form-group">
+            <input type=text class="form-control"  placeholder="请输入您的生日" name=birthdate>
+          </div>
+          <div class="form-group">
+            <input type=text class="form-control"  placeholder="请输入您的住址" name=address>
+          </div>
+          <button type="submit" class="btn btn-default">提交</button>
+        </form>
+  {% endif %}
+
+    <div class="footer">
+       安徽农业大学经济技术学院网络一班
+    </div>
+  </div>
+</body>
+</html>
