@@ -94,6 +94,11 @@ def show_search():
     return render_template('show_search.html')
 
 
+@app.route('/update')
+def update_data():
+    return render_template('admin_update.html')
+
+
 @app.route('/data/add', methods=['POST'])
 def data_add():
     # if not session.get('logged_in'):
@@ -155,6 +160,27 @@ def data_search():
             datas = [dict(id=row[0], name=row[1], gender=row[2], birthdate=row[3], phone=row[4], address=row[5]) for row in
                            cur.fetchall()]
             return render_template('show_search.html', datas=datas)
+    return render_template('error.html', error=error)
+
+
+@app.route('/data/update', methods=['POST'])
+def data_update():
+    if request.method == 'POST':
+        if not request.form['id']:
+            error = 'You have to input the student id'
+        elif not session.get('logged_in'):
+            error = 'You have to log in'
+        else:
+            g.execute(
+                "update  student set name=%s, gender=%s, birthdate=%s, phone=%s, address=%s where id = %s", [
+                    request.form['name'],
+                    request.form['gender'],
+                    request.form['birthdate'],
+                    request.form['phone'],
+                    request.form['address'],
+                    request.form['id']
+                ])
+            return render_template('admin_update.html')
     return render_template('error.html', error=error)
 
 
