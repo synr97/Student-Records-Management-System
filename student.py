@@ -33,6 +33,11 @@ def check_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 # 首页
 @app.route('/')
 def index():
@@ -101,9 +106,9 @@ def update_data():
 
 @app.route('/data/add', methods=['POST'])
 def data_add():
-    # if not session.get('logged_in'):
-    #     abort(401)
+        # 判断是否是post提交数据
         if request.method == 'POST':
+            # 判断是否输入
             if not request.form['id']:
                 error = 'You have to input the student id'
             elif not request.form['name']:
@@ -117,6 +122,7 @@ def data_add():
             elif not request.form['address']:
                 error = 'You have to input the student address'
             else:
+                # 执行mysql语句
                 g.execute("insert into student (id, name, gender, birthdate, phone, address) values ( %s, %s, %s, %s, %s, %s)", [
                     request.form['id'],
                     request.form['name'],
@@ -125,8 +131,11 @@ def data_add():
                     request.form['phone'],
                     request.form['address'],
                 ])
+                # 提交到数据库
                 db.commit()
+                # 重定向
                 return redirect(url_for('show_system'))
+        # error 页面
         return render_template('error.html', error=error)
 
 
